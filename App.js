@@ -17,8 +17,18 @@ export default class App extends Component {
     })
     const ip = await fetch('http://httpbin.org/ip')
     const data = await ip.json()
+
+    var first = "";
+    var i =0;
+    var letra;
+    while (letra != ",") {
+        letra = data.origin.charAt(i);
+        first = data.origin.substr(0,i); //o comando .substr(x,x) pega as letras no intervalo definido entre os
+        //parênteses.  
+        i++;
+    }
     this.setState({
-      data: data.origin
+      data: first
     })    
   }
   render() {
@@ -29,10 +39,10 @@ export default class App extends Component {
           <Text style={styles.ip}>{this.state.data}</Text>
           <TouchableOpacity style={styles.button} onPress={this.findMyIp}>
             <Text style={styles.buttonText}>Discover my IP!</Text>
-          </TouchableOpacity>
+          </TouchableOpacity>      
         </View>
         <View style={styles.footer}>
-          <Text style={styles.made}>Made by Raiffe Pontes</Text>
+          <Text style={styles.made}>by Raiffe Pontes</Text>
         </View>
       </View>
     );
